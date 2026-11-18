@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Knights Takip</title>
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-title" content="Knights Takip">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="theme-color" content="#1A1335">
+<link rel="apple-touch-icon" href="icon-180.png">
+<link rel="icon" type="image/png" href="icon-192.png">
+<link rel="manifest" href="manifest.json">
+<style>
+  html, body { margin: 0; height: 100%; background: #1A1335; overflow: hidden; }
+  #splash { position: fixed; inset: 0; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 16px;
+            color: #C3BEDA; font: 15px/1.4 -apple-system, "Segoe UI", Roboto, Arial, sans-serif; text-align: center; padding: 0 24px; }
+  #splash img { width: 120px; height: 120px; border-radius: 26px; }
+  #splash a { color: #F07A1A; font-weight: 600; }
+  #app { position: fixed; left: 0; right: 0; top: env(safe-area-inset-top, 0px); bottom: env(safe-area-inset-bottom, 0px);
+         width: 100%; height: calc(100% - env(safe-area-inset-top, 0px) - env(safe-area-inset-bottom, 0px));
+         border: 0; opacity: 0; transition: opacity .25s; background: #F1F0F6; }
+  #app.on { opacity: 1; }
+  #alt { position: fixed; left: 0; right: 0; bottom: 0; height: env(safe-area-inset-bottom, 0px); background: #FFFFFF; }
+</style>
+</head>
+<body>
+<div id="splash">
+  <img src="icon-192.png" alt="Başkent Knights">
+  <div id="mesaj">Yükleniyor…</div>
+  <a id="yedek" href="#" target="_top">Açılmazsa buraya dokun</a>
+</div>
+<iframe id="app" title="Knights Offseason Takip" allow="clipboard-write"></iframe>
+<div id="alt"></div>
+<script>
+  // ↓↓↓ Buraya Apps Script'teki, sonu /exec ile biten uygulama linkini yapıştır ↓↓↓
+  var UYGULAMA_LINKI = 'https://script.google.com/macros/s/AKfycbyi-WYiKLVcRX5TB0hjlfYcV3UgXopgdce-A94CyIozTvPQY6m38idtLwfVbJutQPw/exec';
+  // ↑↑↑ ----------------------------------------------------------------------- ↑↑↑
+
+  var app = document.getElementById('app');
+  var yedek = document.getElementById('yedek');
+  if (!/^https?:\/\//.test(UYGULAMA_LINKI)) {
+    document.getElementById('mesaj').textContent = 'Uygulama linki henüz eklenmemiş (index.html içindeki UYGULAMA_LINKI satırı).';
+    yedek.style.display = 'none';
+  } else {
+    yedek.href = UYGULAMA_LINKI;
+    app.addEventListener('load', function () { app.classList.add('on'); });
+    app.src = UYGULAMA_LINKI;
+  }
+</script>
+</body>
+</html>
